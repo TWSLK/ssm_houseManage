@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ForderMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Forder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="stime" jdbcType="VARCHAR" property="stime" />
+    <result column="etime" jdbcType="VARCHAR" property="etime" />
+    <result column="fwid" jdbcType="INTEGER" property="fwid" />
+    <result column="isdel" jdbcType="VARCHAR" property="isdel" />
+    <result column="pubtime" jdbcType="VARCHAR" property="pubtime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.entity.Forder">
+    <result column="pj" jdbcType="LONGVARCHAR" property="pj" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, fid, status, stime, etime, fwid, isdel, pubtime
+  </sql>
+  <sql id="Blob_Column_List">
+    pj
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from forder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from forder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Forder">
+    insert into forder (id, uid, fid, 
+      status, stime, etime, 
+      fwid, isdel, pubtime, 
+      pj)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{stime,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, 
+      #{fwid,jdbcType=INTEGER}, #{isdel,jdbcType=VARCHAR}, #{pubtime,jdbcType=VARCHAR}, 
+      #{pj,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Forder">
+    insert into forder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="stime != null">
+        stime,
+      </if>
+      <if test="etime != null">
+        etime,
+      </if>
+      <if test="fwid != null">
+        fwid,
+      </if>
+      <if test="isdel != null">
+        isdel,
+      </if>
+      <if test="pubtime != null">
+        pubtime,
+      </if>
+      <if test="pj != null">
+        pj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null">
+        #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="fwid != null">
+        #{fwid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="pubtime != null">
+        #{pubtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pj != null">
+        #{pj,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Forder">
+    update forder
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null">
+        stime = #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        etime = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="fwid != null">
+        fwid = #{fwid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        isdel = #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="pubtime != null">
+        pubtime = #{pubtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pj != null">
+        pj = #{pj,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.entity.Forder">
+    update forder
+    set uid = #{uid,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      stime = #{stime,jdbcType=VARCHAR},
+      etime = #{etime,jdbcType=VARCHAR},
+      fwid = #{fwid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=VARCHAR},
+      pubtime = #{pubtime,jdbcType=VARCHAR},
+      pj = #{pj,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Forder">
+    update forder
+    set uid = #{uid,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      stime = #{stime,jdbcType=VARCHAR},
+      etime = #{etime,jdbcType=VARCHAR},
+      fwid = #{fwid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=VARCHAR},
+      pubtime = #{pubtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="getCount" parameterType="java.util.Map" resultType="int">
+    select  count(*) from forder  where 1=1 
+    <if test="uid!=null ">
+     and uid=#{uid,jdbcType=INTEGER}
+     </if>
+      <if test="fid!=null ">
+     and fid=#{fid,jdbcType=INTEGER}
+     </if>
+      <if test="status!=null ">
+      and status like  concat('%',#{status,jdbcType=VARCHAR},'%')
+     </if>
+      <if test="isdel!=null ">
+     and isdel=#{isdel,jdbcType=VARCHAR}
+     </if>
+  </select>
+  <select id="getAll" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select   
+    <include refid="Base_Column_List" />
+   ,
+    <include refid="Blob_Column_List" />
+     from forder where 1=1
+       <if test="uid!=null ">
+     and uid=#{uid,jdbcType=INTEGER}
+     </if>
+      <if test="fid!=null ">
+     and fid=#{fid,jdbcType=INTEGER}
+     </if>
+      <if test="status!=null ">
+     and status like  concat('%',#{status,jdbcType=VARCHAR},'%')
+     </if>
+   <if test="isdel!=null ">
+     and isdel=#{isdel,jdbcType=VARCHAR}
+     </if>
+  </select> 
+   <select id="getByPage" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+     select 
+     <include refid="Base_Column_List" />
+  ,
+    <include refid="Blob_Column_List" />
+    from forder  where 1=1
+    
+      <if test="uid!=null ">
+     and uid=#{uid,jdbcType=INTEGER}
+     </if>
+      <if test="fid!=null ">
+     and fid=#{fid,jdbcType=INTEGER}
+     </if>
+      <if test="status!=null ">
+      and status like  concat('%',#{status,jdbcType=VARCHAR},'%')
+     </if>
+     <if test="isdel!=null ">
+     and isdel=#{isdel,jdbcType=VARCHAR}
+     </if>
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+     <select id="showTop10" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+     select 
+     <include refid="Base_Column_List" />
+    from forder  
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+</mapper>

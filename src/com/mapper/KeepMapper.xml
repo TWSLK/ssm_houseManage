@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.KeepMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Keep" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="VARCHAR" />
+    <result column="pubtime" property="pubtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, fid, status, isdel, pubtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from keep
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from keep
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Keep" >
+    insert into keep (id, uid, fid, 
+      status, isdel, pubtime
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, #{pubtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Keep" >
+    insert into keep
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+      <if test="pubtime != null" >
+        pubtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="pubtime != null" >
+        #{pubtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Keep" >
+    update keep
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=VARCHAR},
+      </if>
+      <if test="pubtime != null" >
+        pubtime = #{pubtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Keep" >
+    update keep
+    set uid = #{uid,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=VARCHAR},
+      pubtime = #{pubtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+   <select id="getCount" parameterType="java.util.Map" resultType="int">
+    select  count(*) from keep  where 1=1 
+    <if test="uid!=null ">
+     and uid=#{uid,jdbcType=INTEGER}
+     </if>
+      <if test="fid!=null ">
+     and fid=#{fid,jdbcType=INTEGER}
+     </if>
+      <if test="status!=null ">
+      and status like  concat('%',#{status,jdbcType=VARCHAR},'%')
+     </if>
+      <if test="isdel!=null ">
+     and isdel=#{isdel,jdbcType=VARCHAR}
+     </if>
+  </select>
+  <select id="getAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select   
+    <include refid="Base_Column_List" />
+     from keep where 1=1
+       <if test="uid!=null ">
+     and uid=#{uid,jdbcType=INTEGER}
+     </if>
+      <if test="fid!=null ">
+     and fid=#{fid,jdbcType=INTEGER}
+     </if>
+      <if test="status!=null ">
+     and status like  concat('%',#{status,jdbcType=VARCHAR},'%')
+     </if>
+   <if test="isdel!=null ">
+     and isdel=#{isdel,jdbcType=VARCHAR}
+     </if>
+  </select> 
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+     <include refid="Base_Column_List" />
+    from keep  where 1=1
+    
+      <if test="uid!=null ">
+     and uid=#{uid,jdbcType=INTEGER}
+     </if>
+      <if test="fid!=null ">
+     and fid=#{fid,jdbcType=INTEGER}
+     </if>
+      <if test="status!=null ">
+      and status like  concat('%',#{status,jdbcType=VARCHAR},'%')
+     </if>
+     <if test="isdel!=null ">
+     and isdel=#{isdel,jdbcType=VARCHAR}
+     </if>
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+     <select id="showTop10" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+     <include refid="Base_Column_List" />
+    from keep  
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+</mapper>
